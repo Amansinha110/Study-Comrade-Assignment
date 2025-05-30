@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Academics | Departments & Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #b21f1f;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        .decorative-line {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        
+        .departments-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .department-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .department-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+        }
+        
+        .department-card.arts::before {
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+        }
+        
+        .department-card.science::before {
+            background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+        }
+        
+        .department-card.commerce::before {
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+        }
+        
+        .department-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-left: 15px;
+        }
+        
+        .department-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 28px;
+            color: white;
+        }
+        
+        .arts .department-icon {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        
+        .science .department-icon {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        }
+        
+        .commerce .department-icon {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        }
+        
+        .department-title {
+            font-size: 2.2rem;
+            color: #1a2a6c;
+        }
+        
+        .courses-list {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+        
+        .courses-list li {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-left: 3px solid #ddd;
+            transition: all 0.3s ease;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .courses-list li:hover {
+            border-left: 3px solid #b21f1f;
+            background-color: #f9f9f9;
+            transform: translateX(5px);
+        }
+        
+        .course-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .course-link:hover {
+            color: #1a2a6c;
+        }
+        
+        .course-link i {
+            margin-right: 10px;
+            color: #b21f1f;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .departments-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .department-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .department-description {
+            padding-left: 15px;
+            margin-bottom: 20px;
+            color: #555;
+            font-style: italic;
+            border-left: 2px dashed #ccc;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>College Academics</h1>
+            <div class="subtitle">Explore Our Departments and Academic Programs</div>
+            <div class="decorative-line"></div>
+            <p>Our college offers diverse programs across three main faculties. Each department provides specialized courses designed to prepare students for successful careers.</p>
+        </header>
+        
+        <div class="departments-container">
+            <!-- Arts Department -->
+            <div class="department-card arts">
+                <div class="department-header">
+                    <div class="department-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h2 class="department-title">Faculty of Arts</h2>
+                </div>
+                <p class="department-description">Programs focused on critical thinking, creativity, and human expression.</p>
+                <ul class="courses-list">
+                    <li>
+                        <a href="english.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            English Literature
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sociology.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Sociology
+                        </a>
+                    </li>
+                    <li>
+                        <a href="history.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            History
+                        </a>
+                    </li>
+                    <li>
+                        <a href="psychology.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Psychology
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Science Department -->
+            <div class="department-card science">
+                <div class="department-header">
+                    <div class="department-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h2 class="department-title">Faculty of Science</h2>
+                </div>
+                <p class="department-description">Programs exploring the natural world through experimentation and analysis.</p>
+                <ul class="courses-list">
+                    <li>
+                        <a href="computer_science.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Computer Science
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mathematics.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Mathematics
+                        </a>
+                    </li>
+                    <li>
+                        <a href="biology.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Biology
+                        </a>
+                    </li>
+                    <li>
+                        <a href="physics.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Physics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Commerce Department -->
+            <div class="department-card commerce">
+                <div class="department-header">
+                    <div class="department-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="department-title">Faculty of Commerce</h2>
+                </div>
+                <p class="department-description">Programs focused on business, finance, and economic principles.</p>
+                <ul class="courses-list">
+                    <li>
+                        <a href="accounting.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Accounting
+                        </a>
+                    </li>
+                    <li>
+                        <a href="business_admin.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Business Administration
+                        </a>
+                    </li>
+                    <li>
+                        <a href="economics.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Economics
+                        </a>
+                    </li>
+                    <li>
+                        <a href="marketing.html" class="course-link">
+                            <i class="fas fa-arrow-right"></i>
+                            Marketing
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 College Academics | Empowering Students Through Quality Education</p>
+            <p>Contact: academics@college.edu | Phone: (123) 456-7890</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Academics | Departments & Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(120deg, #1a2a6c, #20468F, #2a5baa);
+            color: white;
+            padding: 60px 30px 40px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,0 100,100" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+            position: relative;
+        }
+        
+        .decorative-line {
+            height: 5px;
+            width: 150px;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            margin: 25px auto;
+            border-radius: 3px;
+            position: relative;
+        }
+        
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .media-container {
+            display: flex;
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+        
+        .video-block, .map-block {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-header, .map-header {
+            background: linear-gradient(to right, #2a5baa, #1a2a6c);
+            color: white;
+            padding: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .video-header i, .map-header i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .video-content {
+            padding: 20px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .map-content {
+            padding: 20px;
+            height: 400px;
+        }
+        
+        .map-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+        
+        .departments-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .department-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .department-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .department-card:hover .department-image img {
+            transform: scale(1.05);
+        }
+        
+        .arts .department-image { background: linear-gradient(45deg, #8E2DE2, #4A00E0); }
+        .science .department-image { background: linear-gradient(45deg, #00b09b, #96c93d); }
+        .commerce .department-image { background: linear-gradient(45deg, #ff5e62, #ff9966); }
+        
+        .department-content {
+            padding: 25px;
+        }
+        
+        .department-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .department-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 28px;
+            color: white;
+        }
+        
+        .arts .department-icon { background: linear-gradient(135deg, #8E2DE2, #4A00E0); }
+        .science .department-icon { background: linear-gradient(135deg, #00b09b, #96c93d); }
+        .commerce .department-icon { background: linear-gradient(135deg, #ff5e62, #ff9966); }
+        
+        .department-title {
+            font-size: 1.8rem;
+            color: #1a2a6c;
+            font-weight: 700;
+        }
+        
+        .department-description {
+            color: #555;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #eee;
+        }
+        
+        .courses-list {
+            list-style-type: none;
+        }
+        
+        .courses-list li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-left: 3px solid #ddd;
+            transition: all 0.3s ease;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .courses-list li:hover {
+            border-left: 3px solid #ff9966;
+            background-color: #f9f9f9;
+        }
+        
+        .course-link {
+            text-decoration: none;
+            color: #2a5baa;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .course-link:hover {
+            color: #ff5e62;
+        }
+        
+        .course-link i {
+            margin-right: 10px;
+            color: #ff9966;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-section {
+            margin: 60px 0 40px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            color: #1a2a6c;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #ff5e62, #ff9966);
+            border-radius: 2px;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            height: 220px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 42, 108, 0.85);
+            color: white;
+            padding: 12px;
+            font-size: 0.9rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        footer {
+            background: linear-gradient(to right, #1a2a6c, #0d1b4d);
+            color: white;
+            padding: 40px 20px 20px;
+            border-radius: 20px 20px 0 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #ff9966;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-info i {
+            margin-right: 12px;
+            color: #ff9966;
+            font-size: 1.2rem;
+            min-width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .media-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>University Academics</h1>
+            <div class="subtitle">Explore Our Departments, Courses, and Campus Life</div>
+            <div class="decorative-line"></div>
+            <p class="intro-text">Our university offers diverse programs across three main faculties. Each department provides specialized courses designed to prepare students for successful careers in their chosen fields.</p>
+        </header>
+        
+        <div class="media-container">
+            <div class="video-block">
+                <div class="video-header">
+                    <i class="fas fa-play-circle"></i>
+                    <h2>Campus Tour & Facilities</h2>
+                </div>
+                <div class="video-content">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/9Hh7R6Hv0q4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p style="margin-top: 15px; text-align: center; font-style: italic; color: #555;">Take a virtual tour of our state-of-the-art campus facilities</p>
+                </div>
+            </div>
+            
+            <div class="map-block">
+                <div class="map-header">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h2>Campus Location</h2>
+                </div>
+                <div class="map-content">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.184133404672!2d-73.98757492453037!3d40.75802887138786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1690834590563!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Academic Departments</h2>
+        
+        <div class="departments-container">
+            <!-- Arts Department -->
+            <div class="department-card arts">
+                <div class="department-image">
+                    <img src="https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Arts Department">
+                </div>
+                <div class="department-content">
+                    <div class="department-header">
+                        <div class="department-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h2 class="department-title">Faculty of Arts</h2>
+                    </div>
+                    <p class="department-description">Programs focused on critical thinking, creativity, and human expression in various cultural contexts.</p>
+                    <ul class="courses-list">
+                        <li>
+                            <a href="english.html" class="course-link">
+                                <i class="fas fa-book-open"></i>
+                                English Literature
+                            </a>
+                        </li>
+                        <li>
+                            <a href="sociology.html" class="course-link">
+                                <i class="fas fa-users"></i>
+                                Sociology
+                            </a>
+                        </li>
+                        <li>
+                            <a href="history.html" class="course-link">
+                                <i class="fas fa-landmark"></i>
+                                History
+                            </a>
+                        </li>
+                        <li>
+                            <a href="psychology.html" class="course-link">
+                                <i class="fas fa-brain"></i>
+                                Psychology
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Science Department -->
+            <div class="department-card science">
+                <div class="department-image">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Science Department">
+                </div>
+                <div class="department-content">
+                    <div class="department-header">
+                        <div class="department-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h2 class="department-title">Faculty of Science</h2>
+                    </div>
+                    <p class="department-description">Programs exploring the natural world through experimentation, analysis, and technological innovation.</p>
+                    <ul class="courses-list">
+                        <li>
+                            <a href="computer_science.html" class="course-link">
+                                <i class="fas fa-laptop-code"></i>
+                                Computer Science
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mathematics.html" class="course-link">
+                                <i class="fas fa-calculator"></i>
+                                Mathematics
+                            </a>
+                        </li>
+                        <li>
+                            <a href="biology.html" class="course-link">
+                                <i class="fas fa-dna"></i>
+                                Biology
+                            </a>
+                        </li>
+                        <li>
+                            <a href="physics.html" class="course-link">
+                                <i class="fas fa-atom"></i>
+                                Physics
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Commerce Department -->
+            <div class="department-card commerce">
+                <div class="department-image">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Commerce Department">
+                </div>
+                <div class="department-content">
+                    <div class="department-header">
+                        <div class="department-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h2 class="department-title">Faculty of Commerce</h2>
+                    </div>
+                    <p class="department-description">Programs focused on business, finance, economic principles, and entrepreneurial leadership.</p>
+                    <ul class="courses-list">
+                        <li>
+                            <a href="accounting.html" class="course-link">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                Accounting
+                            </a>
+                        </li>
+                        <li>
+                            <a href="business_admin.html" class="course-link">
+                                <i class="fas fa-briefcase"></i>
+                                Business Administration
+                            </a>
+                        </li>
+                        <li>
+                            <a href="economics.html" class="course-link">
+                                <i class="fas fa-coins"></i>
+                                Economics
+                            </a>
+                        </li>
+                        <li>
+                            <a href="marketing.html" class="course-link">
+                                <i class="fas fa-bullhorn"></i>
+                                Marketing
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gallery-section">
+            <h2 class="section-title">Campus Life Gallery</h2>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Graduation Ceremony">
+                    <div class="gallery-caption">Annual Graduation Ceremony</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Science Lab">
+                    <div class="gallery-caption">Advanced Science Laboratory</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Student Discussion">
+                    <div class="gallery-caption">Student Group Discussion</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Library">
+                    <div class="gallery-caption">University Library</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Lane, Academic City, AC 12345</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@university.edu</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-arrow-right"></i> Admissions</li>
+                        <li><i class="fas fa-arrow-right"></i> Campus Tours</li>
+                        <li><i class="fas fa-arrow-right"></i> Academic Calendar</li>
+                        <li><i class="fas fa-arrow-right"></i> Student Portal</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fab fa-facebook"></i> Facebook</li>
+                        <li><i class="fab fa-twitter"></i> Twitter</li>
+                        <li><i class="fab fa-instagram"></i> Instagram</li>
+                        <li><i class="fab fa-linkedin"></i> LinkedIn</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 University Academics. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #ff9966;"></i> for Education</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
