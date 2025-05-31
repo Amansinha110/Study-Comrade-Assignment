@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris Tomlin - Image Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ffcc00, transparent);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            height: 280px;
+            transition: transform 0.4s, box-shadow 0.4s;
+            background: linear-gradient(45deg, #2c3e50, #4a235a);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.4s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            opacity: 0.3;
+        }
+        
+        .img-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 15px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s;
+        }
+        
+        .gallery-item:hover .img-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .dec-1 {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 5%;
+            animation: float 12s infinite ease-in-out;
+        }
+        
+        .dec-2 {
+            width: 80px;
+            height: 80px;
+            bottom: 15%;
+            right: 7%;
+            animation: float 10s infinite ease-in-out reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Responsive layout */
+        @media (max-width: 992px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chris Tomlin</h1>
+            <p class="subtitle">Contemporary Christian Music Artist</p>
+            
+            <div class="decoration dec-1"></div>
+            <div class="decoration dec-2"></div>
+        </header>
+        
+        <div class="gallery">
+            <!-- Image 1 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #e74c3c, #e67e22);"> <img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Worship Performance</div>
+            </div>
+            
+            <!-- Image 2 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #3498db, #2ecc71);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Live Concert</div>
+            </div>
+            
+            <!-- Image 3 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #9b59b6, #34495e);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Album Recording</div>
+            </div>
+            
+            <!-- Image 4 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #1abc9c, #f1c40f);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Stage Presence</div>
+            </div>
+            
+            <!-- Image 5 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #d35400, #c0392b);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Acoustic Session</div>
+            </div>
+            
+            <!-- Image 6 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #2980b9, #8e44ad);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Crowd Interaction</div>
+            </div>
+            
+            <!-- Image 7 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #16a085, #27ae60);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Music Awards</div>
+            </div>
+            
+            <!-- Image 8 -->
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(45deg, #2c3e50, #e74c3c);"><img src="/Screenshot 2025-05-30 233328.png" alt=""></div>
+                <div class="img-title">Studio Session</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Chris Tomlin - Grammy Award-winning Christian artist with over 8 million albums sold</p>
+        </footer>
+    </div>
+</body>
+</html>
